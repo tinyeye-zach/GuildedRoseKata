@@ -19,6 +19,18 @@ class ConjuredItemTest {
 	}
 	
 	@Test
+	public void sellInDateDecreases_QualityMinimume() {
+		Item testItem = new Item("Conjured Mana Cake", 0, 1);
+		Item expectedItem = new Item("Conjured Mana Cake", -1, 0);
+		
+		GildedRose app = new GildedRose(testItem);
+		
+		app.updateQuality();
+		
+		assertItemEquals(app.getItems()[0], expectedItem);
+	}
+	
+	@Test
 	public void qualityDecrease() {
 		Item testItem = new Item("Conjured Mana Cake", 10, 10);
 		Item expectedItem = new Item("Conjured Mana Cake", 9, 8);
