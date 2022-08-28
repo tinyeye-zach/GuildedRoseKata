@@ -1,5 +1,18 @@
+# How to Run this Project (using Eclipse IDE)
+1. If you haven't already, [download the project from GitHub here](https://github.com/tinyeye-zach/GuildedRoseKata.git)
+2. Install Eclipse IDE (if you haven't already) - [link here](https://www.eclipse.org/downloads/)
+3. Install the Java 8 runtime environment - [link here](https://www.oracle.com/ca-en/java/technologies/javase/javase8-archive-downloads.html)
+4. Import the project into Eclipse IDE
+5. In Eclipse IDE, select **Run > Run Configurations** from the top menu to create the Run Configuration with the following information:
+   - Configuration Type: Java Application
+   - Project: GildedRoseKata
+   - Main class: com.gildedrose.TexttestFixture
+6. Press **Run** with this configuration and check your console output
+   - Your console output should look the same as the contents of the file **src/test/resource/SampleOutput.txt**
+7. ***(OPTIONAL)*** You can also install the Eclipse JDE Software tools and run all the JUnit tests that exist in the folder **src/text/java/com/gildedrose**
+
 # Coding Thoughts with Zak Knippel
-In this section, I'll be writing down my thought process on how I came to the final answer. Please forgive the minor amounts of humour or conversational writing style - I've found it to be more engaging to both read and write, and helps both technical and non-technical readers understand and remember what's written. I also am a big fan of roleplaying games such as *Dungeons & Dragons* and can't help but play along with the fantasy theme of this kata. Got to have fun with these assignments, right?
+In this section, I'll be writing down my thought process on how I came to this solution to the Gilded Rose kata. Please forgive the minor amounts of humour or conversational writing style - I've found it to be more engaging to both read and write, and helps both technical and non-technical readers understand and remember what's written. I also am a big fan of roleplaying games such as *Dungeons & Dragons* and can't help but play along with the fantasy theme of this kata. Got to have fun with these assignments, right?
 
 ## 1 - Understanding the Requirements
 Okay, so here's the short version of the requirements:
@@ -61,7 +74,8 @@ I limited myself to these two videos I found discussing this particular problem:
   - I noticed an error where the quality could change by 2 or more points, but not be set to the max/min if it goes out-of-bounds (e.g. Quality 1, decrease by 2, should result in Quality 0 - but I don't believe his solution would do that)
   - I also was not a fan of having to continuously "tick" down the quality 1 point at a time
 - [RailsConf 2014 - All the Little Things by Sandi Metz](https://youtu.be/8bZh5LMaSmE)
-  - This one did not have the same requirements regarding Cranky the goblin as the assignment, but it *did* validate my previous theory regarding the Factory design pattern
+  - This one did not have the same requirements regarding Cranky the goblin as the assignment, so it didn't help me too much...
+  - But it *did* validate my previous theory regarding the Factory design pattern!
 
 ## 4 - High-Level of How I Approached This
 TO BEGIN... that is *waaaaay* too many nested if statements. Makes reading this a massive pain.
@@ -76,12 +90,14 @@ So, here's the steps...
 1. Create a function to handle Quality changes (***changeQuality()***). It should...
    - Ensure that any item's Quality remains within the expected range after the change
    - Handle setting the item to min/max values if the change rate is too high (edge-case)
+     - This stops the need to "tick" an item up or down a single point at a time
 2. Create a function to check if an item is Expired (***isItemExpired()***)
    - This isn't entirely necessary - but I find it easier to reference a single function than risk duplicate code here
 4. Create a function for each *type* of item that updates the item's **Quality** following the proper rules
    1. Normal items - ***updateNormalItems()***
    2. Appreciating items - ***updateAppreciatingItem()***
-   3. Legendary items - ***updateLegendaryItem()*** (this is not really needed, but I felt it was good for code readability and possible expansion later)
+   3. Legendary items - ***updateLegendaryItem()***
+      - In all honesty, this is not really neede - but I felt it was good for code readability and possible future expansion to have this set up
    4. Time-sensitive items - ***updateTimeSensitiveItem()***
    5. Conjured items - ***updateConjuredItem()***
 5. Create a function to identify the *type* of item (based off it's name) and call the appropriate update function (***updateItemQuality()***)
@@ -91,7 +107,7 @@ So, here's the steps...
 And that's it!
 
 ## 5 - Quick Thoughts on How I Would Expand on This
-- Honestly, the rules for how to change item quality should be encapsulated in the Item class. Again, a factory design pattern would be *perfect* for this!
+- Honestly, the rules for how to change item quality should be encapsulated in the Item class. Again, the Factory design pattern would be *perfect* for this!
 - I'm limiting myself to the specific names given in the test fixture, and don't like that
   - I was struggling to find a great way to make a switch statement that was based off identifying keywords in the name
   - *Again, how do we handle compound types? Is that a thing in this problem?*
