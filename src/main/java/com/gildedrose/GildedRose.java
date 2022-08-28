@@ -41,7 +41,7 @@ class GildedRose {
     	// DO NOTHING!!!
     }
     
-    private void updateBackstagePasses(Item item) {
+    private void updateTimeSensitiveItem(Item item) {
     	if (item.sellIn <= 5) {
     		changeQuality(item, 3);
     	} else if (item.sellIn <= 10) {
@@ -85,7 +85,7 @@ class GildedRose {
     			updateLegendaryItem(item);
     			break;
     		case BACKSTAGE_PASSES:
-    			updateBackstagePasses(item);
+    			updateTimeSensitiveItem(item);
     			break;
     		case CONJURED_CAKE:
     			updateConjuredItem(item);
