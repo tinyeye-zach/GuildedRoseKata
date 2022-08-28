@@ -4,7 +4,8 @@ class GildedRose {
 	// CONSTANTS
     public static final String AGED_BRIE = "Aged Brie";
     public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
-    private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    public static final String CONJURED_CAKE = "Conjured Mana Cake";
     
     Item[] items;
     
@@ -53,6 +54,12 @@ class GildedRose {
     	if (isItemExpired(item)) changeQuality(item, -(item.quality));
     }
     
+    private void updateConjuredItem(Item item) {
+    	changeQuality(item, -2);
+    	item.sellIn--;
+    	if (isItemExpired(item)) changeQuality(item, -2);
+    }
+    
     private void changeQuality(Item item, int rate) {
         // Temporarily store the supposed new quality of the item
     	int newQuality = item.quality + rate;
@@ -80,6 +87,9 @@ class GildedRose {
     			break;
     		case BACKSTAGE_PASSES:
     			updateBackstagePasses(item);
+    			break;
+    		case CONJURED_CAKE:
+    			updateConjuredItem(item);
     			break;
     		default:
     			updateNormalItem(item);
