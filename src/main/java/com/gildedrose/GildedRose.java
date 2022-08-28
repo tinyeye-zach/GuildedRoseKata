@@ -25,7 +25,6 @@ class GildedRose {
         }
     }
     
-    
     private void updateNormalItem(Item item) {
     	changeQuality(item, -1);
     	item.sellIn--;
@@ -97,55 +96,4 @@ class GildedRose {
     	}
     }
 
-//    public void updateItemQualityOLD(Item item) {
-//		if (!item.name.equals(AGED_BRIE)
-//                && !item.name.equals(BACKSTAGE_PASSES)) {
-//            if (item.quality > 0) {
-//                if (!item.name.equals(SULFURAS)) {
-//                    changeQuality(item, -1);
-//                }
-//            }
-//        } else {
-//            if (item.quality < 50) {
-//                changeQuality(item, 1);
-//
-//                if (item.name.equals(BACKSTAGE_PASSES)) {
-//                    if (item.sellIn < 11) {
-//                        if (item.quality < 50) {
-//                            changeQuality(item, 1);
-//                        }
-//                    }
-//
-//                    if (item.sellIn < 6) {
-//                        if (item.quality < 50) {
-//                            changeQuality(item, 1);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        if (!item.name.equals(SULFURAS)) {
-//            item.sellIn = item.sellIn - 1;
-//        }
-//
-//        if (item.sellIn < 0) {
-//            if (!item.name.equals(AGED_BRIE)) {
-//                if (!item.name.equals(BACKSTAGE_PASSES)) {
-//                    if (item.quality > 0) {
-//                        if (!item.name.equals(SULFURAS)) {
-//                            changeQuality(item, -1);
-//                        }
-//                    }
-//                } else {
-//                    item.quality = item.quality - item.quality;
-//                    changeQuality(item, -(item.quality));
-//                }
-//            } else {
-//                if (item.quality < 50) {
-//                    changeQuality(item, 1);
-//                }
-//            }
-//        }
-//    }
 }
