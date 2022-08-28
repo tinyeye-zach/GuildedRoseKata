@@ -41,7 +41,7 @@ class GildedRose {
     	// DO NOTHING!!!
     }
     
-    private void updateBackstagePass(Item item) {
+    private void updateBackstagePasses(Item item) {
     	if (item.sellIn <= 5) {
     		changeQuality(item, 3);
     	} else if (item.sellIn <= 10) {
@@ -59,64 +59,83 @@ class GildedRose {
         
         // If the item quality is valid, set the item's quality to the new quality
         boolean inValidRange = (newQuality <= 50) && (newQuality >= 0);
-        if (inValidRange) {
-            item.quality = newQuality;
+        if (!inValidRange) {	// This follows D.R.Y. better, but I don't think it's as readable
+        	newQuality = (newQuality > 50) ? 50 : 0; 	// If the new quality is out of the valid range, set it to the limit and assign it
         }
+        
+        item.quality = newQuality;
     }
     
     private boolean isItemExpired(Item item) {
     	return (item.sellIn < 0);
     }
-
+    
     public void updateItemQuality(Item item) {
-		if (!item.name.equals(AGED_BRIE)
-                    && !item.name.equals(BACKSTAGE_PASSES)) {
-                if (item.quality > 0) {
-                    if (!item.name.equals(SULFURAS)) {
-                        changeQuality(item, -1);
-                    }
-                }
-            } else {
-                if (item.quality < 50) {
-                    changeQuality(item, 1);
-
-                    if (item.name.equals(BACKSTAGE_PASSES)) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                changeQuality(item, 1);
-                            }
-                        }
-
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                changeQuality(item, 1);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!item.name.equals(SULFURAS)) {
-                item.sellIn = item.sellIn - 1;
-            }
-
-            if (item.sellIn < 0) {
-                if (!item.name.equals(AGED_BRIE)) {
-                    if (!item.name.equals(BACKSTAGE_PASSES)) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals(SULFURAS)) {
-                                changeQuality(item, -1);
-                            }
-                        }
-                    } else {
-                        item.quality = item.quality - item.quality;
-                        changeQuality(item, -(item.quality));
-                    }
-                } else {
-                    if (item.quality < 50) {
-                        changeQuality(item, 1);
-                    }
-                }
-            }
+    	switch (item.name) {
+    		case AGED_BRIE:
+    			updateAppreciatingItem(item);
+    			break;
+    		case SULFURAS:
+    			updateLegendaryItem(item);
+    			break;
+    		case BACKSTAGE_PASSES:
+    			updateBackstagePasses(item);
+    			break;
+    		default:
+    			updateNormalItem(item);
+    			
+    	}
     }
+
+//    public void updateItemQualityOLD(Item item) {
+//		if (!item.name.equals(AGED_BRIE)
+//                && !item.name.equals(BACKSTAGE_PASSES)) {
+//            if (item.quality > 0) {
+//                if (!item.name.equals(SULFURAS)) {
+//                    changeQuality(item, -1);
+//                }
+//            }
+//        } else {
+//            if (item.quality < 50) {
+//                changeQuality(item, 1);
+//
+//                if (item.name.equals(BACKSTAGE_PASSES)) {
+//                    if (item.sellIn < 11) {
+//                        if (item.quality < 50) {
+//                            changeQuality(item, 1);
+//                        }
+//                    }
+//
+//                    if (item.sellIn < 6) {
+//                        if (item.quality < 50) {
+//                            changeQuality(item, 1);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        if (!item.name.equals(SULFURAS)) {
+//            item.sellIn = item.sellIn - 1;
+//        }
+//
+//        if (item.sellIn < 0) {
+//            if (!item.name.equals(AGED_BRIE)) {
+//                if (!item.name.equals(BACKSTAGE_PASSES)) {
+//                    if (item.quality > 0) {
+//                        if (!item.name.equals(SULFURAS)) {
+//                            changeQuality(item, -1);
+//                        }
+//                    }
+//                } else {
+//                    item.quality = item.quality - item.quality;
+//                    changeQuality(item, -(item.quality));
+//                }
+//            } else {
+//                if (item.quality < 50) {
+//                    changeQuality(item, 1);
+//                }
+//            }
+//        }
+//    }
 }
